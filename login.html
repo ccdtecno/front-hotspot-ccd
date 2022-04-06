@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="expires" content="-1" />	
+	<link rel="stylesheet" href="./login.css" media="screen">
+	<title>Bienvenido al CCD</title>
+	<script type="text/javascript" src="./assets/p5.min.js"></script>
+	<script type="text/javascript" src="./assets/animate.js"></script>
+	<script type="text/javascript" src="./assets/md5.js"></script>
+</head>
+
+<body>
+	<div id="canvasContainer" style="width: 100%;"></div>
+    <div id="loading">
+        <img src="./assets/logo-white.png" alt="icono decargando">
+    </div>
+	<form class="login-form" name="login" 
+        $(if chap-id) onSubmit="return doLogin()" $(endif)>
+		<input type="hidden" name="dst" value="$(link-orig)" />
+		<input type="hidden" name="popup" value="true" />
+		
+		<img class="login-form-image"src="./assets/logo-white.png"  />
+		<div class="login-form-title">
+			<h2>¡Hola, gracias por visitarnos!</h2>
+			<p>Por favor, registrate con un correo para tener acceso a internet</p>
+		</div>
+
+		<div class="login-form-info">
+			<!-- <label class="login-form-label">User</label> 
+			<input class="login-form-input" name="username" type="text" value="$(username)" placeholder="User Name"/>
+			<label class="login-form-label">Pass</label>
+			<input class="login-form-input"autocomplete="off" name="password" type="password" label="false" placeholder="Password"/> -->
+
+			<label class="login-form-label">Email</label> 
+			<input class="login-form-input" id="emailInput" type="text" placeholder="ejemplo@email.com"/>
+			<label class="login-form-label">Usuario</label>
+			<input class="login-form-input"autocomplete="off" id="nicknameInput" placeholder="¿Como te gusta que te llamen?"/>
+			<p class="login-form-privacy">Al hacer click en Conectar estas dando consentimiento para recibir nuestro boletín de novedades. Consulta los<a href="./privacidad.html">Términos de Uso y Política de Privacidad.</a></p>
+			<input class="login-form-button" id="postButton" type="button" value="Conectar" />
+		</div>
+        
+
+		$(if trial == 'yes')
+		<div class='login-footer'>
+				<p>Conectate gratis por 5 minutos :D</p> 
+				<a class="login-footer-button" href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)"> Click aquí </a>                                                                                    
+		</div>
+		$(endif)
+	</form>
+	<br>
+    
+	$(if error)
+		<div class="login-error" >$(error)</div>
+	$(endif)
+        
+</body>
+<script>
+    const loader = document.querySelector("#loading");
+    const emailValue = document.querySelector("#emailInput");
+    const nicknameValue = document.querySelector("#nicknameInput");
+    const submitButton = document.querySelector("#postButton");
+    emailValue.focus();
+
+    const requestEmailAuth = async() => {
+        let sendEmail = emailValue.value;
+        let sendNickname = nicknameValue.value;
+        console.log(sendEmail);
+        console.log(sendNickname);
+
+        let mailData = {
+            "email" : `${sendEmail}`,
+            "nickName" : `${sendNickname}`,
+        }
+
+        let message = JSON.stringify({mailData});
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                },
+            body: message,
+        };
+        // displayLoading();
+        await fetch('http://192.168.100.187:5500/mail/', options)
+            .then(response => {
+                // hideLoading();
+                if(response.ok) {
+                    if(!alert("Se envio el mail correctamente")) {
+                    window.location.reload();
+                    }
+                } else {
+                    if(!alert("Ocurrio un error al enviar el mail")) {
+                    window.location.reload();
+                    }
+                }
+            }).catch(e => {
+                    console.error("Ocurrio un error", e)
+            });
+                
+        // post
+        return false;
+    }
+
+    // await for response and then do the submit
+    const doLogin = () => {
+        // document.sendin.username.value = document.login.username.value;
+        // document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+        // document.sendin.submit();
+        return false;
+    }
+
+    submitButton.addEventListener('click', async(e) => {
+        requestEmailAuth();
+    });
+</script>
+</html>

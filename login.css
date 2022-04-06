@@ -1,0 +1,137 @@
+* {
+	margin: 0;
+	/* box-sizing: border-box; */
+}
+
+body {
+	width: 100%;
+	display: grid;
+	align-items: center;
+	background: #000;
+	color: white;
+	font-family:Arial, Helvetica, sans-serif
+}
+
+#canvasDiv {
+	width: 100%;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
+.login-form {
+	position: absolute;
+	display: grid;
+	justify-self: center;
+	padding: 2rem 0 0;
+	border-radius: 24px;
+	width: 80%;
+	min-width: 320px;
+	background-color: rgba(21, 37, 109, 0.185);
+}
+
+.login-form-title {
+	margin: 1rem;
+	text-align: center;
+	font-size: large;
+}
+.login-form-image {
+	justify-self: center;
+}
+
+.login-form-title p{
+	font-size: small;
+	font-weight: 300;
+}
+
+.login-form-info {
+	/* background-color: aquamarine; */
+	display: grid;
+	justify-content: center;
+	justify-self: center;
+	width: 60%;
+	max-width: 480px;
+	/* margin-top: 1rem; */
+	padding: 1rem 2rem 1rem;
+}
+
+.login-form-label {
+	/* justify-self: center; */
+	font-family: 'Courier New', Courier, monospace;
+	font-size: small;
+	margin: 0.25rem;
+}
+
+.login-form-input {	
+	justify-self: center;
+	margin-bottom:  0.5rem;
+	min-width: 280px;
+	max-width: 460px;
+}
+
+.login-form-privacy{
+	width: 90%;
+	justify-self: center;
+}
+
+.login-form-privacy,
+.login-form-privacy a {
+	margin: 0.5rem;
+	font-size: smaller;
+}
+
+.login-form-button {
+	/* text-align: center; */
+	margin: 0.5rem 0.5rem 1rem;
+	min-width: 160px;
+	justify-self: center;
+}
+
+.login-footer {
+	/* position: relative; */
+	padding: 1rem;
+	background-color: rgb(1, 1, 134);
+	border-radius: 0 0 24px 24px;
+	text-align: center;
+}
+.login-footer-button {
+	color: cadetblue;
+	text-decoration: none;
+}
+.login-error {
+	display: grid;
+	justify-self: center;
+	font-size: medium;
+	font-weight: bold;
+	color: red;
+}
+
+
+#loading {
+	display: none;
+	justify-self: center;
+	margin: 2rem 0;
+	visibility: hidden;
+	transform-origin: 60px;
+	animation: spin 3s infinite linear;
+  }
+  
+  #loading img{
+	width: 120px;
+  }
+  
+  #loading.display {
+	display: grid;
+	visibility: visible;
+  }
+  
+  @keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+  }
