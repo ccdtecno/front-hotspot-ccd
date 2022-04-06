@@ -75,22 +75,23 @@
             "email" : `${sendEmail}`,
             "nickName" : `${sendNickname}`,
         }
-
+        console.log(mailData);
         let message = JSON.stringify({mailData});
         const options = {
             method: 'POST',
             headers: {
+                'Access-Control-Allow-Origin':'Content-Type',
                 'Content-Type': 'application/json'
                 },
             body: message,
         };
         // displayLoading();
-        await fetch('http://192.168.100.187:5500/mail/', options)
+        await fetch('http://192.168.100.188:3300/mail/', options)
             .then(response => {
                 // hideLoading();
                 if(response.ok) {
                     if(!alert("Se envio el mail correctamente")) {
-                    window.location.reload();
+                    window.location("http://www.centroculturadigital.mx");
                     }
                 } else {
                     if(!alert("Ocurrio un error al enviar el mail")) {
